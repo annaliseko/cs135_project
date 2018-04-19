@@ -23,10 +23,9 @@ CREATE TABLE Major (
 
 INSERT INTO Major (m_id, m_name, credits)
 VALUES
-   ('0', 'Computer Science', '13.00'),
-   ('1', 'Economics', '11.00'),
-   ('2', 'Mathematics', '12.00');
-
+   (0, 'Computer Science', 13.00),
+   (1, 'Economics', 11.00),
+   (2, 'Mathematics', 12.00);
 
 CREATE TABLE Sequence (
   q_id INT UNSIGNED NOT NULL PRIMARY KEY,
@@ -36,20 +35,30 @@ CREATE TABLE Sequence (
 
 INSERT INTO Sequence (q_id, q_name, credits)
 VALUES
-    ('0', 'None', '0.00'),
-    ('1', 'Computer Science', '6.00'),
-    ('2', 'Financial Economics', '5.00'),
-    ('3', 'Leadership', '5.00');
+    (0, 'None', 0.00),
+    (1, 'Computer Science', 6.00),
+    (2, 'Financial Economics', 5.00),
+    (3, 'Leadership', 5.00);
 
 CREATE TABLE Courses (
-  c_id INT UNSIGNED NOT NULL PRIMARY KEY,
-  credits FLOAT(4,2) NOT NULL
+    c_id FLOAT(4,3) NOT NULL PRIMARY KEY,
+    credits FLOAT(3,2) NOT NULL,
+    m_id INT(1) UNSIGNED NOT NULL,
+    FOREIGN KEY (m_id) REFERENCES Major (m_id),
+    q_id INT(1) UNSIGNED NOT NULL,
+    FOREIGN KEY (q_id) REFERENCES Sequence (q_id),
+    is_required BIT NULL DEFAULT 0
 );
 
+INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
+VALUES
+    (0.005, 1.00, 0, 0, 0),
+    (0.060, 1.00, 0, 0, 1);
+
 CREATE TABLE Completed (
-  s_id INT UNSIGNED NOT NULL,
-	FOREIGN KEY (s_id) REFERENCES Students (s_id),
-  c_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (c_id) REFERENCES Courses (c_id),
-  pass BIT NULL DEFAULT 0
+    s_id INT UNSIGNED NOT NULL,
+  	FOREIGN KEY (s_id) REFERENCES Students (s_id),
+    c_id FLOAT(4,3) UNSIGNED NOT NULL,
+    FOREIGN KEY (c_id) REFERENCES Courses (c_id),
+    pass BIT NULL DEFAULT 0
 );
