@@ -50,6 +50,45 @@ CREATE TABLE Courses (
     is_required BIT NULL DEFAULT 0
 );
 
+INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
+VALUES
+    (0.005, 1.00, 0, 0, 0),
+    (0.060, 1.00, 0, 0, 1),
+    (0.070, 1.00, 0, 0, 1),
+    (0.055, 1.00, 0, 0, 1),
+    (0.081, 1.00, 0, 0, 1),
+    (0.105, 1.00, 0, 0, 1),
+    (0.121, 1.00, 0, 0, 1),
+    (0.131, 1.00, 0, 0, 1),
+    (0.140, 1.00, 0, 0, 1),
+    (0.106, 1.00, 0, 0, 0),
+    (0.111, 1.00, 0, 0, 0),
+    (0.124, 1.00, 0, 0, 0),
+    (0.125, 1.00, 0, 0, 0),
+    (0.132, 1.00, 0, 0, 0),
+    (0.133, 1.00, 0, 0, 0),
+    (0.134, 1.00, 0, 0, 0),
+    (0.136, 1.00, 0, 0, 0),
+    (0.137, 1.00, 0, 0, 0),
+    (0.141, 1.00, 0, 0, 0),
+    (0.142, 1.00, 0, 0, 0),
+    (0.144, 1.00, 0, 0, 0),
+    (0.147, 1.00, 0, 0, 0),
+    (0.151, 1.00, 0, 0, 0),
+    (0.152, 1.00, 0, 0, 0),
+    (0.153, 1.00, 0, 0, 0),
+    (0.154, 1.00, 0, 0, 0),
+    (0.155, 1.00, 0, 0, 0),
+    (0.156, 1.00, 0, 0, 0),
+    (0.157, 1.00, 0, 0, 0),
+    (0.158, 1.00, 0, 0, 0),
+    (0.159, 1.00, 0, 0, 0),
+    (0.181, 1.00, 0, 0, 0),
+    (0.189, 1.00, 0, 0, 0),
+    (0.183, 1.00, 0, 0, 1),
+    (0.184, 1.00, 0, 0, 1),
+    (0.195, 0.00, 0, 0, 1);
+
 CREATE TABLE Completed (
     s_id INT UNSIGNED NOT NULL,
   	FOREIGN KEY (s_id) REFERENCES Students (s_id),
@@ -58,6 +97,7 @@ CREATE TABLE Completed (
     pass BIT NULL DEFAULT 0
 );
 
+<<<<<<< HEAD
 
 -- Computer Science courses
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
@@ -100,6 +140,8 @@ VALUES
     (0.195, 0.00, 0, 0, 1);
 
 -- Economics courses
+=======
+>>>>>>> 79fd3a95ff5c92d579e6bab7fdb4bcba67c1ce35
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
 VALUES
     (1.050, 1.00, 1, 0, 1),
@@ -135,7 +177,11 @@ VALUES
     (1.186, 1.00, 1, 0, 0),
     (1.187, 1.00, 1, 0, 0);
 
+<<<<<<< HEAD
 -- Mathematics courses
+=======
+
+>>>>>>> 79fd3a95ff5c92d579e6bab7fdb4bcba67c1ce35
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
 VALUES
     (2.032, 1.00, 2, 0, 1),
