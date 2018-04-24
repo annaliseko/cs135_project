@@ -41,8 +41,20 @@ var validateField = function(fieldElem, infoMessage, validateFn) {
 
 // Checks that username consists of only alphanumeric values
 var validateID = function(text) {
-    var re = /^\d{8}$/;
-    return re.test(s_id);
+  var re = /^\d{8}$/;
+    return re.test(text);
+};
+
+// Checks for phone number in the format xxx xxx xxxx
+var validateFirstName = function(firstname) {
+  var re = /^(?=.*[A-Za-z])$/;
+    return re.test(firstname);
+};
+
+// Checks for email in the format [a-z]@[a-z].[com, edu, gov]
+var validateLastName = function(lastname) {
+    var re = /^(?=.*[A-Za-z])$/;
+    return re.test(lastname);
 };
 
 // Checks for password that has at least 8 characters and at least 1 number
@@ -51,43 +63,25 @@ var validatePassword = function(password) {
     return re.test(password);
 };
 
-// Checks for phone number in the format xxx xxx xxxx
-var validatePhoneNumber = function(phonenumber) {
-    var re = /^\d{3}[\s]\d{3}[\s]\d{4}$/;
-    return re.test(phonenumber);
-};
-
-// Checks for email in the format [a-z]@[a-z].[com, edu, gov]
-var validateEmail = function(text) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(text);
-};
-
-// Checks that one radio button is selected
-var validateRadio = function(radio) {
-    if ($("input[type='radio']:checked").val()) {
-    	return true;
-    } else {
-    	return false;
-    }
-};
-
-// Checks that at least two checkboxes are selected
-var validateCheckbox = function(radio) {
-    if ($("input[type='checkbox']:checked").length >= 2) {
-    	return true;
-    } else {
-    	return false;
-    }
-};
-
 
 $(document).ready(function () {
 
     //validateField for username
-    $("#s_id").focus(function () {
-        validateField($(this), "Must be the 8 digit id number",
+    $("#student").focus(function () {
+        validateField($(this), "Must be 8 digit id number",
                       validateID);
+    });
+
+    //validateField for phone number
+    $("#firstname").focus(function () {
+        validateField($(this), "Must only have numeric characters and of the format xxx xxx xxxx",
+                      validateFirstName);
+    });
+
+    //validateField for email
+    $("#lastname").focus(function () {
+        validateField($(this), "Must be in form example@example.com or .edu or .gov]",
+                      validateLastName);
     });
 
     //validateField for password
@@ -96,43 +90,12 @@ $(document).ready(function () {
                       validatePassword);
     });
 
-    //validateField for phone number
-    $("#phonenumber").focus(function () {
-        validateField($(this), "Must only have numeric characters and of the format xxx xxx xxxx",
-                      validatePhoneNumber);
-    });
-
-    //validateField for email
-    $("#email").focus(function () {
-        validateField($(this), "Must be in form example@example.com or .edu or .gov]",
-                      validateEmail);
-    });
-
-    //validateField for radio buttons
-    $("input[type = 'radio'").focus(function () {
-        validateField($(this), "Must have one box checked!",
-                      validateRadio);
-    });
-
-    //validateField for checkboxes
-    $("input[type = 'checkbox'").focus(function () {
-        validateField($(this), "Must have at least two boxes checked!",
-                      validateCheckbox);
-    });
 
     // Submission validation checks
     $('#submit').click(function() {
-        if (!$("#username").val() != '' || !$("#password").val() != ''
-            || !$("#phonenumber").val() != '' || !$("#email").val() != '') {
+        if (!$("#s_id").val() != '' || !$("#password").val() != ''
+            || !$("#firstname").val() != '' || !$("#lastname").val() != '') {
             alert('You are missing one or more required fields!');
-        }
-
-        if ($("input[name=holiday]:checked").length >= 2 && $("input[name='year']:checked").val()) {
-            return true;
-        }
-
-        else if ($("input[name=holiday]:checked").length < 2 || !$("input[name='year']:checked").val()) {
-        	alert('You are missing a check!');
         }
         else {
             return true;

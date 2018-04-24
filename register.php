@@ -69,18 +69,18 @@ $connection = connect_to_db("sequence");
 
       <!-- Username, password, phone number, email input fields -->
       <legend for="s_id">Student ID:
-      <input id = "s_id" type="text" name="s_id" value=""> </legend>
+      <input id = "student" type="text" name="s_id" value=""> </legend>
 
       <legend for="firstname">First Name:
-      <input id = "password" type="password" name="password" value=""> </legend>
+      <input id = "firstname" type="firstname" name="firstname" value=""> </legend>
 
       <legend for="lastname">Last Name:
-      <input id = "phonenumber" type="phonenumber" name="phonemuber" value=""> </legend>
+      <input id = "lastname" type="lastname" name="lastname" value=""> </legend>
 
       <legend for="pwd">Password:
       <input id = "password" type="password" name="password" value=""> </legend>
 
-      <legend for="college">College:
+      <!-- <legend for="college">College:
       <input id = "email" type="text" name="email" value=""> </legend>
 
       <legend for="grad">Expected Graduation Year:
@@ -90,7 +90,7 @@ $connection = connect_to_db("sequence");
       <input id = "email" type="text" name="email" value=""> </legend>
 
       <legend for="sequence">Sequence:
-      <input id = "email" type="text" name="email" value=""> </legend>
+      <input id = "email" type="text" name="email" value=""> </legend> -->
 
   <br>
       <!-- Submit button  -->
