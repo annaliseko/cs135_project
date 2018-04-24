@@ -40,12 +40,45 @@ var validatePassword = function(){
 	}
 }
 
+var validateFirstName = function() {
+	var firstNameValue = document.getElementsByName("firstname")[0].value;
+	var rexp = /^[a-zA-Z]+$/;
+	if(rexp.test(firstNameValue)){
+		return true;
+	}
+	else{
+		return false;
+	}
+};
+
+
+var validateLastName = function(){
+	var lastNameValue = document.getElementsByName("lastname")[0].value;
+	var rexp = /^[a-zA-Z]+$/;
+	if(rexp.test(lastNameValue)){
+		return true;
+	}
+	else{
+		return false;
+	}
+};
+
+
 $(document).ready(function() {
 
 	var studentID = document.getElementsByName("studentid")[0];
 	studentID.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter 9 numbers 0-9", validateS_ID)
-    });
+	});
+	var firstName = document.getElementsByName("firstname")[0];
+	firstName.addEventListener("keyup", function(){
+		validateField(this, "Error: Enter a letter a-z or A-Z", validateFirstName)
+	});
+	
+	var lastName = document.getElementsByName("lastname")[0];
+	lastName.addEventListener("keyup", function(){
+		validateField(this, "Error: Enter a letter a-z or A-Z", validateLastName)
+	});
     
     var password = document.getElementsByName("password")[0];
 	password.addEventListener("keyup", function(){

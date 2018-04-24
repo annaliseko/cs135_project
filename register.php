@@ -1,7 +1,7 @@
 <?php
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
-// require 'sequence.php';
+// require 'sequence.sql';
 ?>
 
 <!DOCTYPE html>
@@ -20,15 +20,15 @@ $connection = connect_to_db("sequence");
         <!-- Bootstrap (incase u need nice grid layout -->
         <!-- download it from the website: http://getbootstrap.com
              it was too large to include in template folder, but i included link below -->
-        <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" >
+        <!-- <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" > -->
 
         <!-- jQuery  -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <!-- CSS  -->
-        <link rel="stylesheet" href="css/validate.css">
+        <!-- <link rel="stylesheet" href="css/validate.css"> -->
         <!-- JavaScript  -->
-        <script src="validate.js"></script>
+        <script src="newvalidate.js"></script>
     </head>
 
 <body>
@@ -68,17 +68,21 @@ $connection = connect_to_db("sequence");
       <b> Information: </b>
 
       <!-- Username, password, phone number, email input fields -->
-      <legend for="s_id">Student ID:
-      <input id = "student" type="text" name="s_id" value=""> </legend>
+      <legend for="studentid">Student ID:
+      <input id = "student" type="text" name="studentid" value=""> 
+      <span style="display:none"></span></legend>
 
       <legend for="firstname">First Name:
-      <input id = "firstname" type="firstname" name="firstname" value=""> </legend>
+      <input id = "firstname" type="firstname" name="firstname" value=""> 
+      <span style="display:none"></span></legend>
 
       <legend for="lastname">Last Name:
-      <input id = "lastname" type="lastname" name="lastname" value=""> </legend>
+      <input id = "lastname" type="lastname" name="lastname" value="">
+      <span style="display:none"></span></legend>
 
-      <legend for="pwd">Password:
-      <input id = "password" type="password" name="password" value=""> </legend>
+      <legend for="password">Password:
+      <input id = "password" type="password" name="password" value=""> 
+      <span style="display:none"></span></legend>
 
       <!-- <legend for="college">College:
       <input id = "email" type="text" name="email" value=""> </legend>
