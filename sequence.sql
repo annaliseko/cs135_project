@@ -100,7 +100,7 @@ VALUES
 
 
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
-    VALUES
+VALUES
     (2.032, 1.00, 2, 0, 1),
     (2.060, 1.00, 2, 0, 1),
     (2.131, 1.00, 2, 0, 1),
