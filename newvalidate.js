@@ -1,5 +1,5 @@
 var validateField = function(fieldElem, infoMessage, validateFn) {
-	
+
 	if(validateFn() == true){
 		$(fieldElem).parent().children('span').attr('style', 'display:none');
 		$(fieldElem).attr('style', 'border-color:green');
@@ -11,15 +11,15 @@ var validateField = function(fieldElem, infoMessage, validateFn) {
 		$(fieldElem).attr('style', 'border-color:red');
 		$(fieldElem).parent().children('span').attr('style', 'color:red');
 		$(fieldElem).parent().children('span').text(infoMessage);
-	
-	}	
+
+	}
 };
 
 
 
 var validateS_ID= function() {
 	var SIDValue = document.getElementsByName("studentid")[0].value;
-	var rexp = /^\d{9}$/;
+	var rexp = /^\d{8}$/;
 	if(rexp.test(SIDValue)){
 		return true;
 	}
@@ -97,7 +97,7 @@ var validateSequence = function(){
 
 var validateGradYear = function(){
 	var gradyear = document.getElementsByName("gradyear")[0].value;
-	var rexp = /^\d{9}$/;
+	var rexp = /^\d{4}$/;
 	if(rexp.test(gradyear)){
 		return true;
 	}
@@ -118,17 +118,17 @@ $(document).ready(function() {
 	firstName.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter a letter a-z or A-Z", validateFirstName)
 	});
-	
+
 	var lastName = document.getElementsByName("lastname")[0];
 	lastName.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter a letter a-z or A-Z", validateLastName)
 	});
-    
+
     var password = document.getElementsByName("password")[0];
 	password.addEventListener("keyup", function(){
 		validateField(this, "Error: Must have at least 8 letters and 1 number", validatePassword)
 	});
-	
+
 	var college = document.getElementsByName("college")[0];
 	college.addEventListener("keyup", function(){
 		validateField(this, "Error: Must have letters a-zA-Z", validateCollege)
