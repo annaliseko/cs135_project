@@ -15,6 +15,13 @@ CREATE TABLE Students (
   sequence ENUM('None', 'Computer Science', 'Financial Economics')
 );
 
+INSERT INTO Students (s_id, firstname, lastname, pwd, college, grad, major, sequence)
+VALUES
+   (00000000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 'Economics', 'None'),
+   (00000001, 'harvey', 'mudd', 'password2', 'Harvey Mudd College', 0000, 'Computer Science', 'None'),
+   (00020000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 'Economics', 'None'),
+   (00000002, 'scripps', 'col', 'password3', 'Scripps College', 0000, 'Mathematics', 'None');
+
 CREATE TABLE Major (
   m_id INT UNSIGNED NOT NULL PRIMARY KEY,
   m_name ENUM('Computer Science', 'Economics', 'Mathematics'),
@@ -38,7 +45,7 @@ VALUES
     (0, 'None', 0.00),
     (1, 'Computer Science', 6.00),
     (2, 'Financial Economics', 5.00);
-    
+
 CREATE TABLE Courses (
     c_id FLOAT(4,3) NOT NULL PRIMARY KEY,
     credits FLOAT(3,2) NOT NULL,

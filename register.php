@@ -1,67 +1,58 @@
 <?php
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
-// require 'sequence.sql';
+// $query = "SELECT * FROM Students";
+// $result = perform_query($connection, $query);
+// $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+// echo "<pre>"; print_r($row); echo "</pre>";
+//
+// function get_enum_values($conn, $table, $field )
+// {
+//     $type = perform_query($conn, "SHOW COLUMNS FROM $table WHERE Field = '$field'")[0]["Type"];
+//     $result = mysqli_fetch_array($type, MYSQLI_ASSOC);
+//     // preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+//     // $enum = explode("','", $matches[1]);
+//     return $result;
+// }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="my celebration poll">
-        <meta name="author" content="Annalise Ko">
+      <title>Register</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="newvalidate.js"></script>
 
-        <!-- The above meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-        <title>Register</title>
-
-        <!-- Bootstrap (incase u need nice grid layout -->
-        <!-- download it from the website: http://getbootstrap.com
-             it was too large to include in template folder, but i included link below -->
-        <!-- <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" > -->
-
-        <!-- jQuery  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-        <!-- CSS  -->
-        <!-- <link rel="stylesheet" href="css/validate.css"> -->
-        <!-- JavaScript  -->
-        <script src="newvalidate.js"></script>
-    </head>
-
-<body>
   <!-- DROPDOWN MENUS (move this later to appropriate part in form)-->
 <?php
-  $col_result = mysqli_query($connection, "SELECT college FROM Students");
-  if (!$col_result) {
-        echo("<p>Error performing query:" . mysql_error() . "<p>");
-        exit();
-    }
-  $college="<select>";
-  while ($row = mysqli_fetch_array($col_result)) {
-  $college .= "<option value='" . $row['college'] . "'>" . $row['college'] . "</option>";
-  }
-  $college .= '</select>';
-  echo $college;
+// $testing = get_enum_values($connection, 'Students', 'college');
+// var_dump($testing);
+// print_r($testing);
 
-  $m_result = mysqli_query($connection, "SELECT m_name FROM Major");
-  $major="<select>";
-  while ($row = mysqli_fetch_array($m_result)) {
-  $major .= "<option value='" . $row['m_name'] . "'>" . $row['m_name'] . "</option>";
-  }
-  $major .= '</select>';
-  echo $major;
 
-  $q_result = mysqli_query($connection, "SELECT q_name FROM Sequence");
-  $sequence="<select>";
-  while ($row = mysqli_fetch_array($q_result)) {
-  $sequence .= "<option value='" . $row['q_name'] . "'>" . $row['q_name'] . "</option>";
-  }
-  $sequence .= '</select>';
-  echo $sequence;
-?>
+      $col_result = mysqli_query($connection, "SELECT DISTINCT college FROM Students");
+      $college="<select>";
+      while ($row = mysqli_fetch_array($col_result)) {
+      $college .= "<option value='" . $row['college'] . "'>" . $row['college'] . "</option>";
+      }
+      $college .= '</select>';
+
+      $m_result = mysqli_query($connection, "SELECT DISTINCT m_name FROM Major");
+      $major="<select>";
+      while ($row = mysqli_fetch_array($m_result)) {
+        $major .= "<option value='" . $row['m_name'] . "'>" . $row['m_name'] . "</option>";
+      }
+      $major .= '</select>';
+
+      $q_result = mysqli_query($connection, "SELECT DISTINCT q_name FROM Sequence");
+      $sequence="<select>";
+      while ($row = mysqli_fetch_array($q_result)) {
+        $sequence .= "<option value='" . $row['q_name'] . "'>" . $row['q_name'] . "</option>";
+      }
+      $sequence .= '</select>';
+    ?>
+    </head>
+<body>
       <h1> Register </h1>
       <form name="register" method="post">
 
@@ -69,11 +60,11 @@ $connection = connect_to_db("sequence");
 
       <!-- Username, password, phone number, email input fields -->
       <legend for="studentid">Student ID:
-      <input id = "student" type="text" name="studentid" value=""> 
+      <input id = "student" type="text" name="studentid" value="">
       <span style="display:none"></span></legend>
 
       <legend for="firstname">First Name:
-      <input id = "firstname" type="firstname" name="firstname" value=""> 
+      <input id = "firstname" type="firstname" name="firstname" value="">
       <span style="display:none"></span></legend>
 
       <legend for="lastname">Last Name:
@@ -81,10 +72,10 @@ $connection = connect_to_db("sequence");
       <span style="display:none"></span></legend>
 
       <legend for="password">Password:
-      <input id = "password" type="password" name="password" value=""> 
+      <input id = "password" type="password" name="password" value="">
       <span style="display:none"></span></legend>
 
-      <!-- <legend for="college">College:
+      <legend for="college">College:
       <input id = "email" type="text" name="email" value=""> </legend>
 
       <legend for="grad">Expected Graduation Year:
@@ -94,7 +85,7 @@ $connection = connect_to_db("sequence");
       <input id = "email" type="text" name="email" value=""> </legend>
 
       <legend for="sequence">Sequence:
-      <input id = "email" type="text" name="email" value=""> </legend> -->
+      <input id = "email" type="text" name="email" value=""> </legend>
 
   <br>
       <!-- Submit button  -->
