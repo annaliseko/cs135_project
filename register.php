@@ -77,7 +77,7 @@ $connection = connect_to_db("sequence");
 
 
       <legend for="college">College:
-      <input id = "college" type="text" name="college" value="">
+      <id = "college" name="college"><?php echo $college ?>
       <span style="display:none"></span></legend>
 
       <legend for="grad">Expected Graduation Year:
@@ -85,11 +85,11 @@ $connection = connect_to_db("sequence");
       <span style="display:none"></span></legend>
 
       <legend for="major">Major:
-      <input id = "major" type="text" name="major" value="">
+      <id = "major" name="major"><?php echo $major ?>
       <span style="display:none"></span></legend>
 
       <legend for="sequence">Sequence:
-      <input id = "sequence" type="text" name="sequence" value="">
+      <id = "sequence" name="sequence"><?php echo $sequence ?>
       <span style="display:none"></span></legend>
 
   <br>
