@@ -28,7 +28,6 @@ var validateS_ID= function() {
 	}
 };
 
-
 var validatePassword = function(){
 	var passwordValue = document.getElementsByName("password")[0].value;
 	var rexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -51,7 +50,6 @@ var validateFirstName = function() {
 	}
 };
 
-
 var validateLastName = function(){
 	var lastNameValue = document.getElementsByName("lastname")[0].value;
 	var rexp = /^[a-zA-Z]+$/;
@@ -62,38 +60,6 @@ var validateLastName = function(){
 		return false;
 	}
 };
-
-var validateCollege = function(){
-	var college = document.getElementsByName("college")[0].value;
-	var rexp =/^[a-zA-Z]+$/;
-	if(rexp.test(college)){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-var validateMajor = function(){
-	var major = document.getElementsByName("major")[0].value;
-	var rexp =/^[a-zA-Z]+$/;
-	if(rexp.test(major)){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
-var validateSequence = function(){
-	var sequence = document.getElementsByName("sequence")[0].value;
-	var rexp =/^[a-zA-Z]+$/;
-	if(rexp.test(sequence)){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
 
 var validateGradYear = function(){
 	var gradyear = document.getElementsByName("gradyear")[0].value;
@@ -112,16 +78,16 @@ $(document).ready(function() {
 
 	var studentID = document.getElementsByName("studentid")[0];
 	studentID.addEventListener("keyup", function(){
-		validateField(this, "Error: Enter 9 numbers 0-9", validateS_ID)
+		validateField(this, "Error: Enter 8 numbers 0-9", validateS_ID)
 	});
 	var firstName = document.getElementsByName("firstname")[0];
 	firstName.addEventListener("keyup", function(){
-		validateField(this, "Error: Enter a letter a-z or A-Z", validateFirstName)
+		validateField(this, "Error: Can only contain alphabetical characters", validateFirstName)
 	});
 
 	var lastName = document.getElementsByName("lastname")[0];
 	lastName.addEventListener("keyup", function(){
-		validateField(this, "Error: Enter a letter a-z or A-Z", validateLastName)
+		validateField(this, "Error: Can only contain alphabetical characters", validateLastName)
 	});
 
     var password = document.getElementsByName("password")[0];
@@ -129,29 +95,9 @@ $(document).ready(function() {
 		validateField(this, "Error: Must have at least 8 letters and 1 number", validatePassword)
 	});
 
-	var college = document.getElementsByName("college")[0];
-	college.addEventListener("keyup", function(){
-		validateField(this, "Error: Must have letters a-zA-Z", validateCollege)
-	});
-
-	var major = document.getElementsByName("major")[0];
-	major.addEventListener("keyup", function(){
-		validateField(this, "Error: Must have letters a-zA-Z", validateMajor)
-	});
-
-	var sequence = document.getElementsByName("sequence")[0];
-	sequence.addEventListener("keyup", function(){
-		validateField(this, "Error: Must have letters a-zA-Z", validateSequence)
-	});
-
 	var gradyear = document.getElementsByName("gradyear")[0];
 	gradyear.addEventListener("keyup", function(){
-		validateField(this, "Error: Must have numbers 0-9", validateGradYear)
+		validateField(this, "Error: Must be in the form YYYY with only numbers", validateGradYear)
 	});
-
-
-
-
-
 
 });
