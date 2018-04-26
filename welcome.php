@@ -49,7 +49,7 @@ li a:hover {
   <li><a class="active" href="login.php">Login</a></li>
   <li><a href="MyProgress.php">My Progress</a></li>
   <li><a href="Major.php">Major</a></li>
-  <li><a href="Courses.php">Courses</a></li>
+  <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
 </ul>
 
     <center>
