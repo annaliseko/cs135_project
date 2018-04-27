@@ -18,7 +18,7 @@ var validateField = function(fieldElem, infoMessage, validateFn) {
 
 
 var validateS_ID= function() {
-	var SIDValue = document.getElementsByName("studentid")[0].value;
+	var SIDValue = document.getElementsByName("sid")[0].value;
 	var rexp = /^\d{8}$/;
 	if(rexp.test(SIDValue)){
 		return true;
@@ -29,7 +29,7 @@ var validateS_ID= function() {
 };
 
 var validatePassword = function(){
-	var passwordValue = document.getElementsByName("password")[0].value;
+	var passwordValue = document.getElementsByName("pwd")[0].value;
 	var rexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 	if(rexp.test(passwordValue)){
 		return true;
@@ -76,7 +76,7 @@ var validateGradYear = function(){
 
 $(document).ready(function() {
 
-	var studentID = document.getElementsByName("studentid")[0];
+	var studentID = document.getElementsByName("sid")[0];
 	studentID.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter 8 numbers 0-9", validateS_ID)
 	});
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		validateField(this, "Error: Can only contain alphabetical characters", validateLastName)
 	});
 
-    var password = document.getElementsByName("password")[0];
+    var password = document.getElementsByName("pwd")[0];
 	password.addEventListener("keyup", function(){
 		validateField(this, "Error: Must have at least 8 letters and 1 number", validatePassword)
 	});
