@@ -47,10 +47,15 @@ li a:hover {
 <body>
 
 <ul>
-  <li><a class="active" href="login.php">Login</a></li>
-  <li><a href="MyProgress.php">My Progress</a></li>
-  <li><a href="Major.php">Major</a></li>
-  <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
+  <?php if(isset($_SESSION['student'])){ ?>
+    <li><a class="link" href="logout.php">logout</a></li>
+    <li><a href="myprogress.php">My Progress</a></li>
+    <li><a href="Major.php">Major</a></li>
+    <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
+<?php }
+else{ ?>
+  <li><a class="link" href="welcome.php">Login</a></li>
+<?php } ?>
 </ul>
 
     <center>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
 require 'queries.php'
@@ -23,15 +24,17 @@ require 'queries.php'
           $major = $_POST['major'];
           $sequence = $_POST['sequence'];
 
+        $user = $firstname . " " . $lastname;
+        $_SESSION['student'] = $user;
+        $_SESSION['major'] = $major;
+        $_SESSION['sequence'] = $sequence;
+
         mysqli_stmt_execute($selectStudent);
         if($selectStudent ->fetch()) {
          $idmessage = "There is already an account with your student ID. If you think this is a mistake, please contact admin.";
         }
         else {
           mysqli_stmt_execute($insertStudent);
-
-          print_r(" Error in insert: " . $connection->error . "\n");
-          print_r("");
           mysqli_stmt_insert_id($insertStudent);
           $idmessage = "Welcome $firstname $lastname ($s_id)! <br>";
         }
