@@ -97,7 +97,7 @@ li a:hover {
       }
       $sequence .= '</select>';
     ?>
-    
+
 </head>
 
 <body>
@@ -118,18 +118,18 @@ else{ ?>
         <h1>Welcome to the Sequence Tracker!</h1>
         <div>
         <form name="login" method="post">
-        <legend for="studentid">Student ID:
+        <legend for="sid">Student ID:
             <input type="text" name="sid" value="">
             <span style="display:none"></span></legend>
-        <legend for="password"> Password:
-                <input type="password" name="pwd" value="">
+        <legend for="pwd"> Password:
+                <input type="pwd" name="pwd" value="">
                 <span  style="display:none"> </span> </legend>
-        <button type="submit" href = "">Submit</button>
+        <input id = "login" type="submit" name="login" value="Log In"/>
         </div>
         <div>
-
+<!--
             <h> New User?</h>
-            <button type = "submit" href="register.php"> Register </button>
+            <button type = "submit" href="register.php"> Register </button> -->
         </div>
     </center>
 
@@ -195,12 +195,6 @@ else{ ?>
 
 
 </body>
-
-
-
-
-
-
 
 
 </html>

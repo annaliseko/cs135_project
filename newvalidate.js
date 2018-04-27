@@ -28,16 +28,28 @@ var validateS_ID= function() {
 	}
 };
 
-var validatePassword = function(){
-	var passwordValue = document.getElementsByName("pwd")[0].value;
+var validatePwd = function(){
+	var pwdValue = document.getElementsByName("pwd")[0].value;
 	var rexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-	if(rexp.test(passwordValue)){
+	if(rexp.test(pwdValue)){
 		return true;
 	}
 	else{
 		return false;
 	}
 }
+
+
+var validateStudentID= function() {
+	var StudentValue = document.getElementsByName("studentid")[0].value;
+	var rexp = /^\d{8}$/;
+	if(rexp.test(StudentValue)){
+		return true;
+	}
+	else{
+		return false;
+	}
+};
 
 var validateFirstName = function() {
 	var firstNameValue = document.getElementsByName("firstname")[0].value;
@@ -61,6 +73,17 @@ var validateLastName = function(){
 	}
 };
 
+var validatePassword = function(){
+	var passwordValue = document.getElementsByName("password")[0].value;
+	var rexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+	if(rexp.test(passwordValue)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 var validateGradYear = function(){
 	var gradyear = document.getElementsByName("gradyear")[0].value;
 	var rexp = /^\d{4}$/;
@@ -76,10 +99,21 @@ var validateGradYear = function(){
 
 $(document).ready(function() {
 
-	var studentID = document.getElementsByName("sid")[0];
-	studentID.addEventListener("keyup", function(){
+	var sid = document.getElementsByName("sid")[0];
+	sid.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter 8 numbers 0-9", validateS_ID)
 	});
+
+	var pwd = document.getElementsByName("pwd")[0];
+	pwd.addEventListener("keyup", function(){
+	validateField(this, "Error: Must have at least 8 letters and 1 number", validatePwd)
+	});
+
+	var studentID = document.getElementsByName("studentid")[0];
+	studentID.addEventListener("keyup", function(){
+		validateField(this, "Error: Enter 8 numbers 0-9", validateStudentID)
+	});
+
 	var firstName = document.getElementsByName("firstname")[0];
 	firstName.addEventListener("keyup", function(){
 		validateField(this, "Error: Can only contain alphabetical characters", validateFirstName)
@@ -90,7 +124,7 @@ $(document).ready(function() {
 		validateField(this, "Error: Can only contain alphabetical characters", validateLastName)
 	});
 
-    var password = document.getElementsByName("pwd")[0];
+  var password = document.getElementsByName("password")[0];
 	password.addEventListener("keyup", function(){
 		validateField(this, "Error: Must have at least 8 letters and 1 number", validatePassword)
 	});
