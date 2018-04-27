@@ -113,6 +113,18 @@ else{ ?>
   <li><a class="link" href="welcome.php">Login</a></li>
 <?php } ?>
 </ul>
+<script>
+function validateLogin() {
+    var sid = document.forms["login"]["sid"].value;
+    var pass = document.forms["login"]["pwd"].value;
+
+    if (!sid || !pass) {
+        alert("Missing one or more required fields");
+        return false;
+    }
+    else { return true; }
+}
+</script>
 
     <center>
         <h1>Welcome to the Sequence Tracker!</h1>
@@ -151,7 +163,7 @@ else{ ?>
   </script>
     <center>
       <h1> Register </h1>
-      <form name="register" method="post" onsubmit="return validateForm()">
+      <form name="register" method="post">
 
       <!-- Username, password, phone number, email input fields -->
       <legend for="studentid">Student ID:

@@ -11,7 +11,6 @@ require 'queries.php'
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- js -->
-<script src="newvalidate.js"></script>
 <style>
 
 body{
@@ -50,7 +49,7 @@ li a:hover {
     <?php if(isset($_SESSION['student'])){ ?>
       <li><a class="link" href="logout.php">logout</a></li>
       <li><a href="myprogress.php">My Progress</a></li>
-      <li><a href="Major.php">Major</a></li>
+      <li><a class="active" href="Major.php">Major</a></li>
       <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
   <?php }
   else{ ?>
