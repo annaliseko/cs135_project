@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
 require 'queries.php'
