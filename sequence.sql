@@ -11,16 +11,18 @@ CREATE TABLE Students (
   pwd VARCHAR(256) NOT NULL,
   college ENUM('Claremont McKenna College','Harvey Mudd College','Scripps College') NOT NULL,
   grad INT(4) UNSIGNED NOT NULL,
+  m_id INT(1) UNSIGNED NOT NULL,
+  FOREIGN KEY (m_id) REFERENCES Major (m_id),
   major ENUM('Computer Science', 'Economics', 'Mathematics'),
   sequence ENUM('None', 'Computer Science', 'Financial Economics')
 );
 
-INSERT INTO Students (s_id, firstname, lastname, pwd, college, grad, major, sequence)
+INSERT INTO Students (s_id, firstname, lastname, pwd, college, grad, m_id, major, sequence)
 VALUES
-   (00000000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 'Economics', 'None'),
-   (00000001, 'harvey', 'mudd', 'password2', 'Harvey Mudd College', 0000, 'Computer Science', 'None'),
-   (00020000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 'Economics', 'None'),
-   (00000002, 'scripps', 'col', 'password3', 'Scripps College', 0000, 'Mathematics', 'None');
+   (00000000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 1, 'Economics', 'None'),
+   (00000001, 'harvey', 'mudd', 'password2', 'Harvey Mudd College', 0000, 0, 'Computer Science', 'None'),
+   (00020000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 1, 'Economics', 'None'),
+   (00000002, 'scripps', 'col', 'password3', 'Scripps College', 0000, 2, 'Mathematics', 'None');
 
 CREATE TABLE Major (
   m_id INT UNSIGNED NOT NULL PRIMARY KEY,
