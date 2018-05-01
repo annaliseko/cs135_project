@@ -60,10 +60,11 @@ li a:hover {
         $_SESSION['sequence'] = $sequence;
 
 
-        // do a select query on table Major to get the m_id based on the variable $major 
-        // select m_id from Major where  m_name = $major 
-        // the query will return a result, and you should store result in a variable called $m_id 
+        // do a select query on table Major to get the m_id based on the variable $major
+        // select m_id from Major where  m_name = $major
+        // the query will return a result, and you should store result in a variable called $m_id
         $m_id = "SELECT m_id FROM Major where m_name = $major";
+                print_r($m_mid);
 
         mysqli_stmt_execute($selectStudent);
         if($selectStudent ->fetch()) {
