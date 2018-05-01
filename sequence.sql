@@ -4,6 +4,18 @@ CREATE DATABASE sequence;
 
 USE sequence;
 
+CREATE TABLE Major (
+  m_id INT UNSIGNED NOT NULL PRIMARY KEY,
+  m_name ENUM('Computer Science', 'Economics', 'Mathematics'),
+  credits FLOAT(4,2) NOT NULL
+);
+
+INSERT INTO Major (m_id, m_name, credits)
+VALUES
+   (0, 'Computer Science', 13.00),
+   (1, 'Economics', 11.00),
+   (2, 'Mathematics', 11.00);
+
 CREATE TABLE Students (
   s_id INT(8) UNSIGNED NOT NULL PRIMARY KEY,
   firstname VARCHAR(256) NOT NULL,
@@ -23,18 +35,6 @@ VALUES
    (00000001, 'harvey', 'mudd', 'password2', 'Harvey Mudd College', 0000, 0, 'Computer Science', 'None'),
    (00020000, 'claremont', 'mckenna', 'password1', 'Claremont McKenna College', 0000, 1, 'Economics', 'None'),
    (00000002, 'scripps', 'col', 'password3', 'Scripps College', 0000, 2, 'Mathematics', 'None');
-
-CREATE TABLE Major (
-  m_id INT UNSIGNED NOT NULL PRIMARY KEY,
-  m_name ENUM('Computer Science', 'Economics', 'Mathematics'),
-  credits FLOAT(4,2) NOT NULL
-);
-
-INSERT INTO Major (m_id, m_name, credits)
-VALUES
-   (0, 'Computer Science', 13.00),
-   (1, 'Economics', 11.00),
-   (2, 'Mathematics', 11.00);
 
 CREATE TABLE Sequence (
   q_id INT UNSIGNED NOT NULL PRIMARY KEY,
