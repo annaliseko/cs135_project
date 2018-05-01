@@ -66,6 +66,14 @@ CREATE TABLE Completed (
     pass BIT NULL DEFAULT 0
 );
 
+INSERT INTO Completed(s_id, c_id, pass)
+    (00000000, 1.101, 1),
+    (00000000, 1.102, 1),
+    (00000000, 1.125, 1),
+    (00000000, 1.180, 1),
+    (00000000, 1.03,  1),
+    (00000000, 1.107, 1);
+
 -- Computer Science courses
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
 VALUES
