@@ -57,7 +57,7 @@ li a:hover {
       <li><a class="link" href="logout.php">Logout</a></li>
       <li><a class="active" href="myprogress.php">My Progress</a></li>
       <li><a href="Major.php">Major</a></li>
-      <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
+      <li><a href="http://catalog.claremontmckenna.edu/" target="_blank">Courses</a></li>
   <?php }
   else{ ?>
     <li><a class="link" href="welcome.php">Login</a></li>
@@ -72,6 +72,7 @@ li a:hover {
 <p> Your major is: <?php echo $_SESSION['major']; ?> </br> <i>Major ID: <?php echo $_SESSION['m_id']; ?> </i></p>
 <?php
 $s_id = $_SESSION['id'];
+echo $s_id;
 $m_id = $_SESSION['m_id'];
 mysqli_stmt_execute($selectCompleted);
 mysqli_stmt_store_result($selectCompleted);

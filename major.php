@@ -57,7 +57,7 @@ li a:hover {
       <li><a class="link" href="logout.php">Logout</a></li>
       <li><a href="myprogress.php">My Progress</a></li>
       <li><a class="active" href="Major.php">Major</a></li>
-      <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
+      <li><a href="http://catalog.claremontmckenna.edu/" target="_blank">Courses</a></li>
   <?php }
   else{ ?>
     <li><a class="link" href="welcome.php">Login</a></li>

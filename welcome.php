@@ -58,24 +58,29 @@ li a:hover {
         $_SESSION['student'] = $user;
         $_SESSION['major'] = $major;
         $_SESSION['sequence'] = $sequence;
+        $_SESSION['id'] = $s_id;
 
 
         // do a select query on table Major to get the m_id based on the variable $major
         // select m_id from Major where  m_name = $major
         // the query will return a result, and you should store result in a variable called $m_id
-        $m_id = "SELECT m_id FROM Major where m_name = $major";
-                print_r($m_mid);
+        $mquery = "SELECT m_id FROM Major where m_name = '$major'";
+        $mresult = perform_query($connection, $mquery);
+        $arrthing = Array();
+        while ($row = mysqli_fetch_array ($mresult, MYSQLI_ASSOC)){
+          $arrthing[] =  $row['m_id'];
+        }
+        $m_id=implode(", ",$arrthing);
+        $_SESSION['m_id'] = $m_id;
 
         mysqli_stmt_execute($selectStudent);
         if($selectStudent ->fetch()) {
-         $idmessage = "There is already an account with your student ID. If you think this is a mistake, please contact admin.";
+         echo "There is already an account with your student ID. If you think this is a mistake, please contact admin.";
         }
         else {
           mysqli_stmt_execute($insertStudent);
           mysqli_stmt_insert_id($insertStudent);
-          $idmessage = "Welcome $firstname $lastname ($s_id)! <br>";
         }
-        echo $idmessage;
         mysqli_stmt_close($selectStudent);
         mysqli_stmt_close($insertStudent);
         }
@@ -96,11 +101,8 @@ li a:hover {
           }
           $user = $firstname . " " . $lastname;
           $_SESSION['student'] = $user;
-          print_r($_SESSION['student']);
           $_SESSION['major'] = $major;
-          print_r($_SESSION['major']);
           $_SESSION['sequence'] = $sequence;
-          print_r($_SESSION['sequence']);
           $_SESSION['id'] = $s_id;
           $_SESSION['m_id'] = $m_id;
         }
@@ -159,6 +161,7 @@ function validateLogin() {
 </script>
 
     <center>
+      <?php if(!isset($_SESSION['student'])){ ?>
         <h1>Welcome to the Sequence Tracker!</h1>
         <div>
         <form name="login" method="post">
@@ -235,6 +238,12 @@ function validateLogin() {
       <p><input id = "submit" type="submit" name="submit" value="Submit"/></p>
 
       </form>
+    <?php } else {?>
+    <h1> Welcome <?php echo $_SESSION['student']; ?> !</h1>
+    <h3> Student ID: <?php echo $_SESSION['id']; ?> </br>
+      Major: <?php echo $_SESSION['major']; ?> </br>
+      Sequence: <?php echo $_SESSION['sequence']; ?> </h3>
+    <?php } ?>
       </center>
 
 
