@@ -59,6 +59,12 @@ li a:hover {
         $_SESSION['major'] = $major;
         $_SESSION['sequence'] = $sequence;
 
+
+        // do a select query on table Major to get the m_id based on the variable $major 
+        // select m_id from Major where  m_name = $major 
+        // the query will return a result, and you should store result in a variable called $m_id 
+        $m_id = "SELECT m_id FROM Major where m_name = $major";
+
         mysqli_stmt_execute($selectStudent);
         if($selectStudent ->fetch()) {
          $idmessage = "There is already an account with your student ID. If you think this is a mistake, please contact admin.";
@@ -113,6 +119,18 @@ else{ ?>
   <li><a class="link" href="welcome.php">Login</a></li>
 <?php } ?>
 </ul>
+<script>
+function validateLogin() {
+    var sid = document.forms["login"]["sid"].value;
+    var pass = document.forms["login"]["pwd"].value;
+
+    if (!sid || !pass) {
+        alert("Missing one or more required fields");
+        return false;
+    }
+    else { return true; }
+}
+</script>
 
     <center>
         <h1>Welcome to the Sequence Tracker!</h1>
@@ -151,7 +169,7 @@ else{ ?>
   </script>
     <center>
       <h1> Register </h1>
-      <form name="register" method="post" onsubmit="return validateForm()">
+      <form name="register" method="post">
 
       <!-- Username, password, phone number, email input fields -->
       <legend for="studentid">Student ID:
