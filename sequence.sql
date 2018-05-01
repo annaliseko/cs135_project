@@ -58,22 +58,6 @@ CREATE TABLE Courses (
     is_required BIT NULL DEFAULT 0
 );
 
-CREATE TABLE Completed (
-    s_id INT UNSIGNED NOT NULL,
-  	FOREIGN KEY (s_id) REFERENCES Students (s_id),
-    c_id FLOAT(4,3) UNSIGNED NOT NULL,
-    FOREIGN KEY (c_id) REFERENCES Courses (c_id),
-    pass BIT NULL DEFAULT 0
-);
-
-INSERT INTO Completed(s_id, c_id, pass)
-    (00000000, 1.101, 1),
-    (00000000, 1.102, 1),
-    (00000000, 1.125, 1),
-    (00000000, 1.180, 1),
-    (00000000, 1.03,  1),
-    (00000000, 1.107, 1);
-
 -- Computer Science courses
 INSERT INTO Courses (c_id, credits, m_id, q_id, is_required)
 VALUES
@@ -173,3 +157,20 @@ VALUES
     (2.172, 1.00, 2, 0, 0),
     (2.173, 1.00, 2, 0, 0),
     (2.175, 1.00, 2, 0, 0);
+
+CREATE TABLE Completed (
+    s_id INT UNSIGNED NOT NULL,
+  	FOREIGN KEY (s_id) REFERENCES Students (s_id),
+    c_id FLOAT(4,3) UNSIGNED NOT NULL,
+    FOREIGN KEY (c_id) REFERENCES Courses (c_id),
+    pass BIT NULL DEFAULT 0
+);
+
+INSERT INTO Completed(s_id, c_id, pass)
+VALUES
+    (00000000, 1.050, 1),
+    (00000000, 1.102, 1),
+    (00000000, 1.125, 1),
+    (00000000, 1.180, 1),
+    (00000000, 1.137, 1),
+    (00000000, 1.193, 1);

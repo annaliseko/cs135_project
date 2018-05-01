@@ -48,7 +48,7 @@ li a:hover {
 
   <ul>
     <?php if(isset($_SESSION['student'])){ ?>
-      <li><a class="link" href="logout.php">logout</a></li>
+      <li><a class="link" href="logout.php">Logout</a></li>
       <li><a href="myprogress.php">My Progress</a></li>
       <li><a href="Major.php">Major</a></li>
       <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
@@ -64,9 +64,16 @@ li a:hover {
 
 <h1> Welcome <?php echo $_SESSION['student']; ?> </h1>
 <p> Your major is: <?php echo $_SESSION['major']; ?> </p>
-<p> Your sequence is: <?php echo $_SESSION['sequence']; ?> </p>
-</br>
-<p> Based on the courses you've taken, there are some sequences that you can complete: </p>
+</br> </br>
+<?php
+// mysqli_stmt_execute($selectCompleted);
+// mysqli_stmt_execute($selectMissing);
+$selectCompleted = 0;
+$selectMissing = 13;
+?>
+<p> Required courses completed: <?php print_r($selectCompleted) ?> </p>
+<p> Required courses missing: <?php print_r($selectMissing) ?> </p>
 
 <?php } ?>
+
 </body>
