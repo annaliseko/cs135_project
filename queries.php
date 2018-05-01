@@ -15,6 +15,14 @@ $selectStudent->bind_param("i", $s_id);
   print_r($connection->error);
 }
 
+$querylogin = "SELECT s_id from Students where s_id = ? AND pwd = ?";
+$selectLogin = $connection->prepare($querylogin);
+if ($selectLogin) {
+$selectLogin->bind_param("is", $s_id, $pwd);
+} else{
+  print_r($connection->error);
+}
+
 // Do similar types of statements for all inserts: one for GS, purchase, cookies
 //QUERY FOR COURSES STUDENTS HAVE TAKEN SO FAR
 
@@ -36,11 +44,26 @@ if ($selectMissing) {
     die("Errormessage: ". $connection->error);
 }
 
-// if ($stmt = $connection->prepare($query)) {
-//
-//     $stmt->bind_param("issssiiss", $s_id, $firstname, $lastname, $pwd, $college, $grad, $m_id, $major, $sequence);
-//
-//     // execute it and all...
-// } else {
-//     die("Errormessage: ". $connection->error);
-// }
+$query3 = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id and Completed.s_id = ? AND Courses.q_id = 1";
+$cs = $connection->prepare($query3);
+if ($cs) {
+  $cs->bind_param("i", $s_id);
+} else{
+  print_r($connection->error);
+}
+
+$query4 = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id and Completed.s_id = ? AND Courses.q_id = 2";
+$fe = $connection->prepare($query4);
+if ($fe) {
+  $fe->bind_param("i", $s_id);
+} else{
+  print_r($connection->error);
+}
+
+$query5 = "SELECT * FROM Major WHERE m_id = ?";
+$credits = $connection->prepare($query5);
+if ($credits) {
+  $credits->bind_param("i", $m_id);
+} else{
+  print_r($connection->error);
+}

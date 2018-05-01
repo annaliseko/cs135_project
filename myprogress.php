@@ -72,7 +72,6 @@ li a:hover {
 <p> Your major is: <?php echo $_SESSION['major']; ?> </br> <i>Major ID: <?php echo $_SESSION['m_id']; ?> </i></p>
 <?php
 $s_id = $_SESSION['id'];
-echo $s_id;
 $m_id = $_SESSION['m_id'];
 mysqli_stmt_execute($selectCompleted);
 mysqli_stmt_store_result($selectCompleted);
@@ -102,6 +101,20 @@ while ($row = mysqli_fetch_array ($result2, MYSQLI_ASSOC)){
 }
 $missingCourses=implode(", ",$missing);
 
+
+$credqry = "SELECT credits FROM Major WHERE m_id = $m_id";
+$result3 = perform_query($connection, $credqry);
+$cred = Array();
+while ($row = mysqli_fetch_array ($result3, MYSQLI_ASSOC)){
+  $cred[] =  $row['credits'];
+}
+$credits=implode(", ",$cred);
+
+if (empty($completedCourses)) {
+  $rowCompleted = '0.00';
+  $rowMissing = $credits;
+  $missingCourses = 'All Courses in Major (see course catalog)';
+}
 
 ?>
 <p> Required courses completed: <b><?php print_r($rowCompleted) ?> </b></br> <i><?php echo 'Courses: '. $completedCourses; ?> </i></p>

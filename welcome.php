@@ -41,9 +41,16 @@ li a:hover {
     background-color: #FFC300;
 }
 
+.error {
+  font-weight: bold;
+  color: red;
+}
+
 </style>
     <?php
-      // Submit to database
+      ///////////////////////////////////
+      // REGISTER POSTING TO DATABASE ///
+      ///////////////////////////////////
         if(isset($_POST['submit'])) {
           $s_id = $_POST['studentid'];
           $firstname = $_POST['firstname'];
@@ -85,31 +92,43 @@ li a:hover {
         mysqli_stmt_close($insertStudent);
         }
 
+
+        ////////////////////////////////
+        // LOGIN CHECK WITH DATABASE ///
+        ////////////////////////////////
         if(isset($_POST['login'])) {
           $s_id = $_POST['sid'];
           $pwd = $_POST['pwd'];
 
-          $query = "SELECT * FROM Students WHERE s_id = $s_id AND pwd = '$pwd'";
-          $result = perform_query($connection, $query);
-          while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC)){
-            $firstname = $row['firstname'];
-            $lastname = $row['lastname'];
-            $grad = $row['grad'];
-            $major = $row['major'];
-            $m_id = $row['m_id'];
-            $sequence = $row['sequence'];
+          mysqli_stmt_execute($selectLogin);
+          if($selectLogin ->fetch()) {
+            while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC)){
+              $firstname = $row['firstname'];
+              $lastname = $row['lastname'];
+              $grad = $row['grad'];
+              $major = $row['major'];
+              $m_id = $row['m_id'];
+              $sequence = $row['sequence'];
+            }
+            $user = $firstname . " " . $lastname;
+            $_SESSION['student'] = $user;
+            $_SESSION['major'] = $major;
+            $_SESSION['sequence'] = $sequence;
+            $_SESSION['id'] = $s_id;
+            $_SESSION['m_id'] = $m_id;
           }
-          $user = $firstname . " " . $lastname;
-          $_SESSION['student'] = $user;
-          $_SESSION['major'] = $major;
-          $_SESSION['sequence'] = $sequence;
-          $_SESSION['id'] = $s_id;
-          $_SESSION['m_id'] = $m_id;
-        }
+          else {
+            mysqli_stmt_execute($selectLogin);
+            echo "<div class='error'>Invalid Login Credentials</div>";
+          }
+          mysqli_stmt_close($selectLogin);
+      }
       ?>
 
     <?php
-      //  DROPDOWN MENUS (just the setup, the output is with the form)
+      ///////////////////////////////
+      // DROPDOWN FOR ENUM VALUES ///
+      ///////////////////////////////
       $col_result = mysqli_query($connection, "SELECT DISTINCT college FROM Students");
       $college="<select name='college'>";
       while ($row = mysqli_fetch_array($col_result)) {
@@ -147,19 +166,6 @@ else{ ?>
   <li><a class="link" href="welcome.php">Login</a></li>
 <?php } ?>
 </ul>
-<script>
-function validateLogin() {
-    var sid = document.forms["login"]["sid"].value;
-    var pass = document.forms["login"]["pwd"].value;
-
-    if (!sid || !pass) {
-        alert("Missing one or more required fields");
-        return false;
-    }
-    else { return true; }
-}
-</script>
-
     <center>
       <?php if(!isset($_SESSION['student'])){ ?>
         <h1>Welcome to the Sequence Tracker!</h1>
@@ -174,9 +180,6 @@ function validateLogin() {
         <input id = "login" type="submit" name="login" value="Log In"/>
         </div>
         <div>
-<!--
-            <h> New User?</h>
-            <button type = "submit" href="register.php"> Register </button> -->
         </div>
     </center>
 
@@ -193,12 +196,11 @@ function validateLogin() {
           alert("Missing one or more required fields");
           return false;
       }
-      else { return true; }
   }
   </script>
     <center>
       <h1> Register </h1>
-      <form name="register" method="post">
+      <form name="register" method="post" onsubmit="return validateForm()">
 
       <!-- Username, password, phone number, email input fields -->
       <legend for="studentid">Student ID:

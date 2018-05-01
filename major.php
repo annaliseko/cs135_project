@@ -66,15 +66,29 @@ li a:hover {
 
 <?php if(!isset($_SESSION['student'])) {
   echo "<h1> Please log in to see this page </h1>";
-} else { ?>
+} else {
+  $s_id = $_SESSION['id'];
+  $m_id = $_SESSION['m_id'];
+  mysqli_stmt_execute($cs);
+  mysqli_stmt_store_result($cs);
+  $csCourses = mysqli_stmt_num_rows($cs);
+  mysqli_stmt_free_result($cs);
+  mysqli_stmt_close($cs);
+
+  mysqli_stmt_execute($fe);
+  mysqli_stmt_store_result($fe);
+  $feCourses = mysqli_stmt_num_rows($fe);
+  mysqli_stmt_free_result($fe);
+  mysqli_stmt_close($fe);
+  ?>
 
 <h1> Welcome <?php echo $_SESSION['student']; ?> </h1>
 <p> Your major is: <?php echo $_SESSION['major']; ?> </p>
 <p> Your sequence is: <?php echo $_SESSION['sequence']; ?> </p>
 </br>
 <p> Based on the courses you've taken, there are some sequences that you can complete: </p>
-<p> Computer Science: </p>
-<p> Financial Economics: </p>
+<p> Computer Science: <?php echo $csCourses ?> / 6 </p>
+<p> Financial Economics: <?php echo $feCourses ?> / 5 </p>
 
 <?php } ?>
 </body>
