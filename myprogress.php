@@ -41,6 +41,12 @@ li a:hover {
     background-color: #FFC300;
 }
 
+.active {
+    color: black;
+    background-color: #FFC300;
+    font-weight: bold;
+}
+
 </style>
 </head>
 
@@ -49,7 +55,7 @@ li a:hover {
   <ul>
     <?php if(isset($_SESSION['student'])){ ?>
       <li><a class="link" href="logout.php">Logout</a></li>
-      <li><a href="myprogress.php">My Progress</a></li>
+      <li><a class="active" href="myprogress.php">My Progress</a></li>
       <li><a href="Major.php">Major</a></li>
       <li><a href="http://catalog.claremontmckenna.edu/">Courses</a></li>
   <?php }
