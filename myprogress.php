@@ -119,7 +119,127 @@ if (empty($completedCourses)) {
 ?>
 <p> Required courses completed: <b><?php print_r($rowCompleted) ?> </b></br> <i><?php echo 'Courses: '. $completedCourses; ?> </i></p>
 <p> Required courses missing: <b><?php print_r($rowMissing) ?> </b></br> <i><?php echo 'Courses: '. $missingCourses; ?> </i></p>
-
+</br></br>
 <?php } ?>
+
+
+
+<!-- <h4> Add Courses </h4> -->
+<?php
+///////////////////////////////////////////////////
+/// COMMENTED OUT WHAT WE WANTED TO TRY TO DO  ///
+/////    see limitations in final write up   /////
+//////////////////////////////////////////////////
+
+// if(isset($_POST['addCS'])) {
+//   $s_id = $_SESSION['id'];
+//   $c_id = $_POST['cs'];
+//   $pass = 1;
+//
+//   mysqli_stmt_execute($selectAdd);
+//   if($selectAdd->fetch()) {
+//     echo "Cannot add course: You have already taken this course";
+//   }
+//   else {
+//     mysqli_stmt_execute($insertAdd);
+//     mysqli_stmt_insert_id($insertAdd);
+//     echo "Course successfully added";
+//   }
+//   mysqli_stmt_close($selectAdd);
+//   mysqli_stmt_close($insertAdd);
+// }
+//
+//
+// if(isset($_POST['addEcon'])) {
+//   $s_id = $_SESSION['id'];
+//   $c_id = $_POST['econ'];
+//   $pass = 1;
+//
+//   mysqli_stmt_execute($selectAdd);
+//
+//   if($selectAdd ->fetch()) {
+//     echo "Cannot add course: You have already taken this course";
+//   }
+//   else {
+//     mysqli_stmt_execute($insertAdd);
+//     print_r($connection->error);
+//
+//     $cid = mysqli_stmt_insert_id($insertAdd);
+//     echo "Course $cid successfully added";
+//   }
+//   mysqli_stmt_close($selectAdd);
+//   mysqli_stmt_close($insertAdd);
+// }
+//
+// if(isset($_POST['addMath'])) {
+//   $s_id = $_SESSION['id'];
+//   $c_id = $_POST['math'];
+//   $pass = 1;
+//
+//   mysqli_stmt_execute($selectAdd);
+//   if($selectAdd ->fetch()) {
+//    echo "Cannot add course: You have already taken this course";
+//   }
+//   else {
+//     mysqli_stmt_execute($insertAdd);
+//     mysqli_stmt_insert_id($insertAdd);
+//     echo "Course successfully added";
+//   }
+//   mysqli_stmt_close($selectAdd);
+//   mysqli_stmt_close($insertAdd);
+// }
+//
+// $cs_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '0%' ORDER BY c_id");
+// if(mysqli_num_rows($cs_result)){
+// $cs= '<select name="cs">';
+// while($rs=mysqli_fetch_array($cs_result)){
+//       $cs.='<option>'.$rs['c_id'].'</option>';
+//   }
+// }
+// $cs.='</select>';
+?>
+
+<!-- <form name="addCS" method="post">
+  <legend for="cs">Computer Science courses:
+  <?php //echo $cs ?>
+  <span style="display:none"></span>
+<input id = "addCS" type="submit" name="addCS" value="Add"/>
+</form><p></p> -->
+
+<?php
+// $e_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '1%' ORDER BY c_id");
+// if(mysqli_num_rows($e_result)){
+// $econ= '<select name="econ">';
+// while($rs=mysqli_fetch_array($e_result)){
+//       $econ.='<option>'.$rs['c_id'].'</option>';
+//   }
+// }
+// $econ.='</select>';
+?>
+
+<!-- <form name="addEcon" method="post">
+  <legend for="econ">Economics courses:
+  <?php // echo $econ ?>
+  <span style="display:none"></span>
+<input id = "addEcon" type="submit" name="addEcon" value="Add"/>
+</form>
+<p></p> -->
+<?php
+
+// $m_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '2%' ORDER BY c_id");
+// if(mysqli_num_rows($m_result)){
+// $math= '<select name="math">';
+// while($rs=mysqli_fetch_array($m_result)){
+//       $math.='<option>'.$rs['c_id'].'</option>';
+//   }
+// }
+// $math.='</select>';
+?>
+<!-- <form name="addMath" method="post">
+  <legend for="math">Mathematics courses:
+  <?php // echo $math ?>
+  <span style="display:none"></span>
+<input id = "addMath" type="submit" name="addMath" value="Add"/>
+</form> -->
 
 </body>

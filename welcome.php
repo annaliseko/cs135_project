@@ -51,15 +51,15 @@ li a:hover {
       ///////////////////////////////////
       // REGISTER POSTING TO DATABASE ///
       ///////////////////////////////////
-        if(isset($_POST['submit'])) {
-          $s_id = $_POST['studentid'];
-          $firstname = $_POST['firstname'];
-          $lastname = $_POST['lastname'];
-          $pwd = $_POST['password'];
-          $college = $_POST['college'];
-          $grad = $_POST['gradyear'];
-          $major = $_POST['major'];
-          $sequence = $_POST['sequence'];
+      if(isset($_POST['submit'])) {
+        $s_id = $_POST['studentid'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $pwd = $_POST['password'];
+        $college = $_POST['college'];
+        $grad = $_POST['gradyear'];
+        $major = $_POST['major'];
+        $sequence = $_POST['sequence'];
 
         $user = $firstname . " " . $lastname;
         $_SESSION['student'] = $user;
@@ -67,10 +67,6 @@ li a:hover {
         $_SESSION['sequence'] = $sequence;
         $_SESSION['id'] = $s_id;
 
-
-        // do a select query on table Major to get the m_id based on the variable $major
-        // select m_id from Major where  m_name = $major
-        // the query will return a result, and you should store result in a variable called $m_id
         $mquery = "SELECT m_id FROM Major where m_name = '$major'";
         $mresult = perform_query($connection, $mquery);
         $arrthing = Array();
@@ -90,66 +86,68 @@ li a:hover {
         }
         mysqli_stmt_close($selectStudent);
         mysqli_stmt_close($insertStudent);
+      }
+
+
+      ////////////////////////////////
+      // LOGIN CHECK WITH DATABASE ///
+      ////////////////////////////////
+      if(isset($_POST['login'])) {
+        $s_id = $_POST['sid'];
+        $pwd = $_POST['pwd'];
+
+        $query = "SELECT * FROM Students WHERE s_id = $s_id AND pwd = '$pwd'";
+        $result = mysqli_query($connection, $query);
+        mysqli_stmt_execute($selectLogin);
+        if($selectLogin->fetch()) {
+          while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+            $firstname = $row['firstname'];
+            $lastname = $row['lastname'];
+            $grad = $row['grad'];
+            $major = $row['major'];
+            $m_id = $row['m_id'];
+            $sequence = $row['sequence'];
+          }
+          $user = $firstname . " " . $lastname;
+          $_SESSION['student'] = $user;
+          $_SESSION['major'] = $major;
+          $_SESSION['sequence'] = $sequence;
+          $_SESSION['id'] = $s_id;
+          $_SESSION['m_id'] = $m_id;
         }
-
-
-        ////////////////////////////////
-        // LOGIN CHECK WITH DATABASE ///
-        ////////////////////////////////
-        if(isset($_POST['login'])) {
-          $s_id = $_POST['sid'];
-          $pwd = $_POST['pwd'];
-
+        else {
           mysqli_stmt_execute($selectLogin);
-          if($selectLogin ->fetch()) {
-            while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC)){
-              $firstname = $row['firstname'];
-              $lastname = $row['lastname'];
-              $grad = $row['grad'];
-              $major = $row['major'];
-              $m_id = $row['m_id'];
-              $sequence = $row['sequence'];
-            }
-            $user = $firstname . " " . $lastname;
-            $_SESSION['student'] = $user;
-            $_SESSION['major'] = $major;
-            $_SESSION['sequence'] = $sequence;
-            $_SESSION['id'] = $s_id;
-            $_SESSION['m_id'] = $m_id;
-          }
-          else {
-            mysqli_stmt_execute($selectLogin);
-            echo "<div class='error'>Invalid Login Credentials</div>";
-          }
-          mysqli_stmt_close($selectLogin);
+          echo "<div class='error'>Invalid Login Credentials</div>";
+        }
+        mysqli_stmt_close($selectLogin);
       }
       ?>
 
-    <?php
-      ///////////////////////////////
-      // DROPDOWN FOR ENUM VALUES ///
-      ///////////////////////////////
-      $col_result = mysqli_query($connection, "SELECT DISTINCT college FROM Students");
-      $college="<select name='college'>";
-      while ($row = mysqli_fetch_array($col_result)) {
-      $college .= "<option value='" . $row['college'] . "'>" . $row['college'] . "</option>";
-      }
-      $college .= '</select>';
+<?php
+///////////////////////////////
+// DROPDOWN FOR ENUM VALUES ///
+///////////////////////////////
+$col_result = mysqli_query($connection, "SELECT DISTINCT college FROM Students");
+$college="<select name='college'>";
+while ($row = mysqli_fetch_array($col_result)) {
+$college .= "<option value='" . $row['college'] . "'>" . $row['college'] . "</option>";
+}
+$college .= '</select>';
 
-      $m_result = mysqli_query($connection, "SELECT DISTINCT m_name FROM Major");
-      $major="<select name='major'>";
-      while ($row = mysqli_fetch_array($m_result)) {
-        $major .= "<option value='" . $row['m_name'] . "'>" . $row['m_name'] . "</option>";
-      }
-      $major .= '</select>';
+$m_result = mysqli_query($connection, "SELECT DISTINCT m_name FROM Major");
+$major="<select name='major'>";
+while ($row = mysqli_fetch_array($m_result)) {
+  $major .= "<option value='" . $row['m_name'] . "'>" . $row['m_name'] . "</option>";
+}
+$major .= '</select>';
 
-      $q_result = mysqli_query($connection, "SELECT DISTINCT q_name FROM Sequence");
-      $sequence="<select name='sequence'>";
-      while ($row = mysqli_fetch_array($q_result)) {
-        $sequence .= "<option value='" . $row['q_name'] . "'>" . $row['q_name'] . "</option>";
-      }
-      $sequence .= '</select>';
-    ?>
+$q_result = mysqli_query($connection, "SELECT DISTINCT q_name FROM Sequence");
+$sequence="<select name='sequence'>";
+while ($row = mysqli_fetch_array($q_result)) {
+  $sequence .= "<option value='" . $row['q_name'] . "'>" . $row['q_name'] . "</option>";
+}
+$sequence .= '</select>';
+?>
 
 </head>
 
@@ -178,6 +176,7 @@ else{ ?>
                 <input type="pwd" name="pwd" value="">
                 <span  style="display:none"> </span> </legend>
         <input id = "login" type="submit" name="login" value="Log In"/>
+        </form>
         </div>
         <div>
         </div>

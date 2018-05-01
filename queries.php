@@ -67,3 +67,23 @@ if ($credits) {
 } else{
   print_r($connection->error);
 }
+
+
+///////////////////////////////////////////////////
+/// COMMENTED OUT WHAT WE WANTED TO TRY TO DO  ///
+//////////////////////////////////////////////////
+// $query6 = "INSERT INTO Completed (s_id, c_id, pass)
+//           VALUES (?, ?, ?)";
+//           // Can also just put in the direct values instead of these ? placeholders
+//
+// // $connection is the way we connect to db
+// $insertAdd = $connection->prepare($query6);
+// $insertAdd->bind_param("iii", $s_id, $c_id, $pass);
+//
+// $query7 = "SELECT * FROM Completed WHERE s_id=? AND c_id=?";
+// $selectAdd = $connection->prepare($query7);
+// if ($selectAdd) {
+// $selectAdd->bind_param("ii", $s_id, $c_id);
+// } else{
+//   print_r($connection->error);
+// }
