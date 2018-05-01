@@ -79,6 +79,31 @@ li a:hover {
         mysqli_stmt_close($selectStudent);
         mysqli_stmt_close($insertStudent);
         }
+
+        if(isset($_POST['login'])) {
+          $s_id = $_POST['sid'];
+          $pwd = $_POST['pwd'];
+
+          $query = "SELECT * FROM Students WHERE s_id = $s_id AND pwd = '$pwd'";
+          $result = perform_query($connection, $query);
+          while ($row = mysqli_fetch_array ($result, MYSQLI_ASSOC)){
+            $firstname = $row['firstname'];
+            $lastname = $row['lastname'];
+            $grad = $row['grad'];
+            $major = $row['major'];
+            $m_id = $row['m_id'];
+            $sequence = $row['sequence'];
+          }
+          $user = $firstname . " " . $lastname;
+          $_SESSION['student'] = $user;
+          print_r($_SESSION['student']);
+          $_SESSION['major'] = $major;
+          print_r($_SESSION['major']);
+          $_SESSION['sequence'] = $sequence;
+          print_r($_SESSION['sequence']);
+          $_SESSION['id'] = $s_id;
+          $_SESSION['m_id'] = $m_id;
+        }
       ?>
 
     <?php

@@ -21,7 +21,7 @@ if ($selectCompleted) {
 
 // QUERY FOR COURSES STUDENT HAS NOT TAKEN SO FAR
 $query2 = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = ? AND Courses.c_id
-NOT IN (SELECT c_id FROM Courses WHERE Courses.m_id = ?)";
+NOT IN (SELECT c_id FROM Courses WHERE Courses.m_id = ? AND Courses.is_required = 1)";
 $selectMissing = $connection->prepare($query2);
 if ($selectMissing) {
   $selectMissing->bind_param("ii", $s_id, $m_id);

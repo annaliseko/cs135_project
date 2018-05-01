@@ -72,7 +72,9 @@ li a:hover {
 <p> Your major is: <?php echo $_SESSION['major']; ?> </p>
 <p> Your sequence is: <?php echo $_SESSION['sequence']; ?> </p>
 </br>
-<!-- <p> Based on the courses you've taken, there are some sequences that you can complete: </p> -->
+<p> Based on the courses you've taken, there are some sequences that you can complete: </p>
+<p> Computer Science: </p>
+<p> Financial Economics: </p>
 
 <?php } ?>
 </body>
