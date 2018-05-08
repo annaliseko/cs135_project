@@ -73,18 +73,24 @@ li a:hover {
 <?php
 $s_id = $_SESSION['id'];
 $m_id = $_SESSION['m_id'];
+
 mysqli_stmt_execute($selectCompleted);
 mysqli_stmt_store_result($selectCompleted);
 $rowCompleted = mysqli_stmt_num_rows($selectCompleted);
 mysqli_stmt_free_result($selectCompleted);
 mysqli_stmt_close($selectCompleted);
 
-mysqli_stmt_execute($selectMissing);
-mysqli_stmt_store_result($selectMissing);
-$rowMissing = mysqli_stmt_num_rows($selectMissing);
+mysqli_stmt_execute($selectElectives);
+mysqli_stmt_store_result($selectElectives);
+$electivesTaken = mysqli_stmt_num_rows($selectElectives);
 
+$countMissing = "SELECT COUNT(c_id) as numMissing FROM Courses WHERE Courses.m_id = $m_id AND Courses.is_required = 1 AND Courses.c_id NOT IN
+(SELECT Courses.c_id FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = $s_id)";
+$missing = perform_query($connection, $countMissing);
+$row = mysqli_fetch_array($missing, MYSQLI_ASSOC);
+$rowMissing = $row['numMissing'];
 
-$qry = "SELECT Courses.c_id FROM Courses, Completed WHERE Courses.c_id = Completed.c_id and Completed.s_id = $s_id";
+$qry = "SELECT Courses.c_id FROM Courses, Completed WHERE Courses.c_id = Completed.c_id and Completed.s_id = $s_id AND Courses.is_required = 1";
 $result1 = perform_query($connection, $qry);
 $completed = Array();
 while ($row = mysqli_fetch_array ($result1, MYSQLI_ASSOC)){
@@ -92,8 +98,8 @@ while ($row = mysqli_fetch_array ($result1, MYSQLI_ASSOC)){
 }
 $completedCourses=implode(", ",$completed);
 
-$query = "SELECT Courses.c_id FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = $s_id AND Courses.c_id
-NOT IN (SELECT c_id FROM Courses WHERE Courses.m_id = $m_id AND Courses.is_required = 1)";
+$query = "SELECT c_id FROM Courses WHERE Courses.m_id = $m_id AND Courses.is_required = 1 AND Courses.c_id NOT IN
+(SELECT Courses.c_id FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = $s_id)";
 $result2 = perform_query($connection, $query);
 $missing = Array();
 while ($row = mysqli_fetch_array ($result2, MYSQLI_ASSOC)){
@@ -101,6 +107,14 @@ while ($row = mysqli_fetch_array ($result2, MYSQLI_ASSOC)){
 }
 $missingCourses=implode(", ",$missing);
 
+$querye = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = $s_id
+AND Courses.m_id = $m_id AND Courses.c_id NOT IN(SELECT c_id FROM Courses WHERE Courses.is_required = 1)";
+$resulte = perform_query($connection, $querye);
+$elec = Array();
+while ($row = mysqli_fetch_array ($resulte, MYSQLI_ASSOC)){
+  $elec[] =  $row['c_id'];
+}
+$elecCourses=implode(", ",$elec);
 
 $credqry = "SELECT credits FROM Major WHERE m_id = $m_id";
 $result3 = perform_query($connection, $credqry);
@@ -110,136 +124,156 @@ while ($row = mysqli_fetch_array ($result3, MYSQLI_ASSOC)){
 }
 $credits=implode(", ",$cred);
 
+$rquery = "SELECT COUNT(c_id) as reqCourses FROM Courses WHERE m_id = $m_id AND is_required = 1";
+$requiredC = perform_query($connection, $rquery);
+$row = mysqli_fetch_array($requiredC, MYSQLI_ASSOC);
+$elecCount = $row['reqCourses'];
+$electives = $credits - $elecCount;
+
+$aquery = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id and Completed.s_id = $s_id";
+$allC = perform_query($connection, $aquery);
+$allCourses = Array();
+while ($row = mysqli_fetch_array ($allC, MYSQLI_ASSOC)){
+  $allCourses[] =  $row['c_id'];
+}
+$allCompleted=implode(", ",$allCourses);
+
+
 if (empty($completedCourses)) {
   $rowCompleted = '0.00';
   $rowMissing = $credits;
-  $missingCourses = 'All Courses in Major (see course catalog)';
+    echo "in if statment";
+  $missingCourses = 'You have not taken any courses that fulfill this major yet. Please see course catalog.';
 }
 
 ?>
+<h3> Major Requirements: </h3>
 <p> Required courses completed: <b><?php print_r($rowCompleted) ?> </b></br> <i><?php echo 'Courses: '. $completedCourses; ?> </i></p>
 <p> Required courses missing: <b><?php print_r($rowMissing) ?> </b></br> <i><?php echo 'Courses: '. $missingCourses; ?> </i></p>
-</br></br>
+<p> Electives taken: <b><?php print_r($electivesTaken . ' / ' . $electives) ?> </b></br> <i><?php echo 'Courses: '. $elecCourses; ?> </i></p>
+<h3> Your Courses: </h3>
+<p> Course IDs that start with 0 = CS, 1 = Econ, 2 = Math </p>
+<p> All courses completed: <i><?php echo $allCompleted; ?> </i></p>
 <?php } ?>
 
 
 
-<!-- <h4> Add Courses </h4> -->
+<h3> Add Courses </h3>
 <?php
 ///////////////////////////////////////////////////
 /// COMMENTED OUT WHAT WE WANTED TO TRY TO DO  ///
 /////    see limitations in final write up   /////
 //////////////////////////////////////////////////
 
-// if(isset($_POST['addCS'])) {
-//   $s_id = $_SESSION['id'];
-//   $c_id = $_POST['cs'];
-//   $pass = 1;
-//
-//   mysqli_stmt_execute($selectAdd);
-//   if($selectAdd->fetch()) {
-//     echo "Cannot add course: You have already taken this course";
-//   }
-//   else {
-//     mysqli_stmt_execute($insertAdd);
-//     mysqli_stmt_insert_id($insertAdd);
-//     echo "Course successfully added";
-//   }
-//   mysqli_stmt_close($selectAdd);
-//   mysqli_stmt_close($insertAdd);
-// }
-//
-//
-// if(isset($_POST['addEcon'])) {
-//   $s_id = $_SESSION['id'];
-//   $c_id = $_POST['econ'];
-//   $pass = 1;
-//
-//   mysqli_stmt_execute($selectAdd);
-//
-//   if($selectAdd ->fetch()) {
-//     echo "Cannot add course: You have already taken this course";
-//   }
-//   else {
-//     mysqli_stmt_execute($insertAdd);
-//     print_r($connection->error);
-//
-//     $cid = mysqli_stmt_insert_id($insertAdd);
-//     echo "Course $cid successfully added";
-//   }
-//   mysqli_stmt_close($selectAdd);
-//   mysqli_stmt_close($insertAdd);
-// }
-//
-// if(isset($_POST['addMath'])) {
-//   $s_id = $_SESSION['id'];
-//   $c_id = $_POST['math'];
-//   $pass = 1;
-//
-//   mysqli_stmt_execute($selectAdd);
-//   if($selectAdd ->fetch()) {
-//    echo "Cannot add course: You have already taken this course";
-//   }
-//   else {
-//     mysqli_stmt_execute($insertAdd);
-//     mysqli_stmt_insert_id($insertAdd);
-//     echo "Course successfully added";
-//   }
-//   mysqli_stmt_close($selectAdd);
-//   mysqli_stmt_close($insertAdd);
-// }
-//
-// $cs_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '0%' ORDER BY c_id");
-// if(mysqli_num_rows($cs_result)){
-// $cs= '<select name="cs">';
-// while($rs=mysqli_fetch_array($cs_result)){
-//       $cs.='<option>'.$rs['c_id'].'</option>';
-//   }
-// }
-// $cs.='</select>';
+if(isset($_POST['addCS'])) {
+  $s_id = $_SESSION['id'];
+  $c_id = $_POST['cs'];
+  $pass = 1;
+
+  mysqli_stmt_execute($selectAdd);
+  if($selectAdd->fetch()) {
+    echo "Cannot add course: You have already taken this course";
+  }
+  else {
+    mysqli_stmt_execute($insertAdd);
+    mysqli_stmt_insert_id($insertAdd);
+    echo "Course successfully added (please refresh to see updated changes)";
+  }
+  mysqli_stmt_close($selectAdd);
+  mysqli_stmt_close($insertAdd);
+}
+
+
+if(isset($_POST['addEcon'])) {
+  $s_id = $_SESSION['id'];
+  $c_id = $_POST['econ'];
+  $pass = 1;
+
+  mysqli_stmt_execute($selectAdd);
+
+  if($selectAdd ->fetch()) {
+    echo "Cannot add course: You have already taken this course";
+  }
+  else {
+    mysqli_stmt_execute($insertAdd);
+    print_r($connection->error);
+
+    $cid = mysqli_stmt_insert_id($insertAdd);
+    echo "Course successfully added (please refresh to see updated changes)";
+  }
+  mysqli_stmt_close($selectAdd);
+  mysqli_stmt_close($insertAdd);
+}
+
+if(isset($_POST['addMath'])) {
+  $s_id = $_SESSION['id'];
+  $c_id = $_POST['math'];
+  $pass = 1;
+
+  mysqli_stmt_execute($selectAdd);
+  if($selectAdd ->fetch()) {
+   echo "Cannot add course: You have already taken this course";
+  }
+  else {
+    mysqli_stmt_execute($insertAdd);
+    mysqli_stmt_insert_id($insertAdd);
+    echo "Course successfully added (please refresh to see updated changes)";
+  }
+  mysqli_stmt_close($selectAdd);
+  mysqli_stmt_close($insertAdd);
+}
+
+$cs_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '0%' ORDER BY c_id");
+if(mysqli_num_rows($cs_result)){
+$cs= '<select name="cs">';
+while($rs=mysqli_fetch_array($cs_result)){
+      $cs.='<option>'.$rs['c_id'].'</option>';
+  }
+}
+$cs.='</select>';
 ?>
 
-<!-- <form name="addCS" method="post">
+<form name="addCS" method="post">
   <legend for="cs">Computer Science courses:
-  <?php //echo $cs ?>
+  <?php echo $cs ?>
   <span style="display:none"></span>
 <input id = "addCS" type="submit" name="addCS" value="Add"/>
-</form><p></p> -->
+</form><p></p>
 
 <?php
-// $e_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '1%' ORDER BY c_id");
-// if(mysqli_num_rows($e_result)){
-// $econ= '<select name="econ">';
-// while($rs=mysqli_fetch_array($e_result)){
-//       $econ.='<option>'.$rs['c_id'].'</option>';
-//   }
-// }
-// $econ.='</select>';
+$e_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '1%' ORDER BY c_id");
+if(mysqli_num_rows($e_result)){
+$econ= '<select name="econ">';
+while($rs=mysqli_fetch_array($e_result)){
+      $econ.='<option>'.$rs['c_id'].'</option>';
+  }
+}
+$econ.='</select>';
 ?>
 
-<!-- <form name="addEcon" method="post">
+<form name="addEcon" method="post">
   <legend for="econ">Economics courses:
-  <?php // echo $econ ?>
+  <?php echo $econ ?>
   <span style="display:none"></span>
 <input id = "addEcon" type="submit" name="addEcon" value="Add"/>
 </form>
-<p></p> -->
+<p></p>
 <?php
 
-// $m_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '2%' ORDER BY c_id");
-// if(mysqli_num_rows($m_result)){
-// $math= '<select name="math">';
-// while($rs=mysqli_fetch_array($m_result)){
-//       $math.='<option>'.$rs['c_id'].'</option>';
-//   }
-// }
-// $math.='</select>';
+$m_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '2%' ORDER BY c_id");
+if(mysqli_num_rows($m_result)){
+$math= '<select name="math">';
+while($rs=mysqli_fetch_array($m_result)){
+      $math.='<option>'.$rs['c_id'].'</option>';
+  }
+}
+$math.='</select>';
 ?>
-<!-- <form name="addMath" method="post">
+<form name="addMath" method="post">
   <legend for="math">Mathematics courses:
-  <?php // echo $math ?>
+  <?php echo $math ?>
   <span style="display:none"></span>
 <input id = "addMath" type="submit" name="addMath" value="Add"/>
-</form> -->
+</form>
 
 </body>

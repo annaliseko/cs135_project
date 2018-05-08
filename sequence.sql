@@ -163,13 +163,13 @@ CREATE TABLE Completed (
   	FOREIGN KEY (s_id) REFERENCES Students (s_id),
     c_id FLOAT(4,3) UNSIGNED NOT NULL,
     FOREIGN KEY (c_id) REFERENCES Courses (c_id),
-    pass BIT NULL DEFAULT 0
+    pass BIT NULL DEFAULT 0,
+    PRIMARY KEY (s_id, c_id)
 );
 
 INSERT INTO Completed(s_id, c_id, pass)
 VALUES
     (00000000, 1.050, 1),
-    (00000000, 1.102, 1),
     (00000000, 1.125, 1),
     (00000000, 1.180, 1),
     (00000000, 1.137, 1),
