@@ -160,11 +160,6 @@ if (empty($completedCourses)) {
 
 <h3> Add Courses </h3>
 <?php
-///////////////////////////////////////////////////
-/// COMMENTED OUT WHAT WE WANTED TO TRY TO DO  ///
-/////    see limitations in final write up   /////
-//////////////////////////////////////////////////
-
 if(isset($_POST['addCS'])) {
   $s_id = $_SESSION['id'];
   $c_id = $_POST['cs'];
@@ -177,10 +172,11 @@ if(isset($_POST['addCS'])) {
   else {
     mysqli_stmt_execute($insertAdd);
     mysqli_stmt_insert_id($insertAdd);
-    echo "Course successfully added (please refresh to see updated changes)";
+    echo "<font color='green'> Course successfully added! </font>";
   }
   mysqli_stmt_close($selectAdd);
   mysqli_stmt_close($insertAdd);
+  echo "<meta http-equiv='refresh' content='1'>";
 }
 
 
@@ -199,10 +195,11 @@ if(isset($_POST['addEcon'])) {
     print_r($connection->error);
 
     $cid = mysqli_stmt_insert_id($insertAdd);
-    echo "Course successfully added (please refresh to see updated changes)";
+    echo "<font color='green'> Course successfully added! </font>";
   }
   mysqli_stmt_close($selectAdd);
   mysqli_stmt_close($insertAdd);
+  echo "<meta http-equiv='refresh' content='1'>";
 }
 
 if(isset($_POST['addMath'])) {
@@ -217,10 +214,11 @@ if(isset($_POST['addMath'])) {
   else {
     mysqli_stmt_execute($insertAdd);
     mysqli_stmt_insert_id($insertAdd);
-    echo "Course successfully added (please refresh to see updated changes)";
+    echo "<font color='green'> Course successfully added! </font>";
   }
   mysqli_stmt_close($selectAdd);
   mysqli_stmt_close($insertAdd);
+  echo "<meta http-equiv='refresh' content='1'>";
 }
 
 $cs_result = mysqli_query($connection, "SELECT DISTINCT c_id FROM Courses WHERE c_id LIKE '0%' ORDER BY c_id");
