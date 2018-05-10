@@ -10,7 +10,7 @@ if (empty($_SESSION))
 	$_SESSION['key'] = $chk;
 else if ($_SESSION['key'] != $chk)
 	session_destroy();
-  
+
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
 require 'queries.php'
@@ -92,6 +92,7 @@ li a:hover {
           session_unset();  // remove all session variables
           session_destroy();
           echo '<script type="text/javascript">alert("ERROR: There is already an account with your student ID. If you think this is a mistake, please contact admin.")</script>';
+          echo '<font color="red"> There is already an account with your student ID. If you think this is a mistake, please contact admin. </font>';
         }
         else {
           mysqli_stmt_execute($insertStudent);
@@ -131,6 +132,7 @@ li a:hover {
         else {
           mysqli_stmt_execute($selectLogin);
           echo '<script type="text/javascript">alert("ERROR: Invalid Login Credentials")</script>';
+          echo '<font color="red"> Invalid Login Credentials </font>';
         }
         mysqli_stmt_close($selectLogin);
       }
