@@ -10,7 +10,7 @@ if (empty($_SESSION))
 	$_SESSION['key'] = $chk;
 else if ($_SESSION['key'] != $chk)
 	session_destroy();
-  
+
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
 require 'queries.php'
@@ -119,7 +119,7 @@ while ($row = mysqli_fetch_array ($result2, MYSQLI_ASSOC)){
 $missingCourses=implode(", ",$missing);
 
 $querye = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = $s_id
-AND Courses.m_id = $m_id AND Courses.c_id NOT IN(SELECT c_id FROM Courses WHERE Courses.is_required = 1)";
+AND Courses.m_id = $m_id AND Completed.c_id LIKE '_.1%' AND Courses.c_id NOT IN(SELECT c_id FROM Courses WHERE Courses.is_required = 1)";
 $resulte = perform_query($connection, $querye);
 $elec = Array();
 while ($row = mysqli_fetch_array ($resulte, MYSQLI_ASSOC)){
@@ -153,8 +153,7 @@ $allCompleted=implode(", ",$allCourses);
 if (empty($completedCourses)) {
   $rowCompleted = '0.00';
   $rowMissing = $credits;
-    echo "in if statment";
-  $missingCourses = 'You have not taken any courses that fulfill this major yet. Please see course catalog.';
+  $completedCourses = 'You have not taken any courses that fulfill this major yet. Please see course catalog.';
 }
 
 ?>

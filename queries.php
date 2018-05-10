@@ -44,7 +44,7 @@ if ($selectMissing) {
 
 // ELECTIVES TAKEN SO FAR
 $querye = "SELECT * FROM Courses, Completed WHERE Courses.c_id = Completed.c_id AND Completed.s_id = ?
-AND Courses.m_id = ? AND Courses.c_id NOT IN(SELECT c_id FROM Courses WHERE Courses.is_required = 1)";
+AND Courses.m_id = ? AND Completed.c_id LIKE '_.1%' AND Courses.c_id NOT IN(SELECT c_id FROM Courses WHERE Courses.is_required = 1)";
 $selectElectives = $connection->prepare($querye);
 if ($selectElectives) {
   $selectElectives->bind_param("ii", $s_id, $m_id);
