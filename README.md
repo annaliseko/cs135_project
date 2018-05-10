@@ -19,6 +19,8 @@ The dbconn.php file connects to the sequence.sql database.
 The major.php lists the required courses remaining for the student, displaying the results of the queries to the database. 
 
 ### Instructions
+FIRST, import the sequence.sql table to create the DB relations required by this application.
+
 Test features as new user:
 1. Go to welcome.php
 2. Register as a new user
@@ -34,9 +36,8 @@ Test features as an existing user:
 5. Logout
 
 Test features as our test student:
-1. Import our sequence.sql table
-2. Go to welcome.php
-3. Log in with Student ID: 00000000 and Password: password1
-4. Add courses as you complete them
-5. See changes be reflected on My Progress and Major page
-6. Logout
+1. Go to welcome.php
+2. Log in with Student ID: 00000000 and Password: password1
+3. Add courses as you complete them
+4. See changes be reflected on My Progress and Major page
+5. Logout
