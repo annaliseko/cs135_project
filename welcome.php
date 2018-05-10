@@ -78,7 +78,9 @@ li a:hover {
 
         mysqli_stmt_execute($selectStudent);
         if($selectStudent ->fetch()) {
-         echo "There is already an account with your student ID. If you think this is a mistake, please contact admin.";
+          session_unset();  // remove all session variables
+          session_destroy();
+          echo '<script type="text/javascript">alert("ERROR: There is already an account with your student ID. If you think this is a mistake, please contact admin.")</script>';
         }
         else {
           mysqli_stmt_execute($insertStudent);
@@ -117,7 +119,7 @@ li a:hover {
         }
         else {
           mysqli_stmt_execute($selectLogin);
-          echo "<div class='error'>Invalid Login Credentials</div>";
+          echo '<script type="text/javascript">alert("ERROR: Invalid Login Credentials")</script>';
         }
         mysqli_stmt_close($selectLogin);
       }
@@ -168,6 +170,8 @@ else{ ?>
       <?php if(!isset($_SESSION['student'])){ ?>
         <h1>Welcome to the Sequence Tracker!</h1>
         <div>
+          <h3> Login </h3>
+
         <form name="login" method="post">
         <legend for="sid">Student ID:
             <input type="text" name="sid" value="">
@@ -181,8 +185,8 @@ else{ ?>
         <div>
         </div>
     </center>
-
     <body>
+    </br>
   <script>
   function validateForm() {
       var s_id = document.forms["register"]["studentid"].value;
@@ -198,7 +202,7 @@ else{ ?>
   }
   </script>
     <center>
-      <h1> Register </h1>
+      <h3> Register </h3>
       <form name="register" method="post" onsubmit="return validateForm()">
 
       <!-- Username, password, phone number, email input fields -->

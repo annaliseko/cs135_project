@@ -14,32 +14,6 @@ var validateField = function(fieldElem, infoMessage, validateFn) {
 
 	}
 };
-
-
-
-var validateS_ID= function() {
-	var SIDValue = document.getElementsByName("sid")[0].value;
-	var rexp = /^\d{8}$/;
-	if(rexp.test(SIDValue)){
-		return true;
-	}
-	else{
-		return false;
-	}
-};
-
-var validatePwd = function(){
-	var pwdValue = document.getElementsByName("pwd")[0].value;
-	var rexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-	if(rexp.test(pwdValue)){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
-
 var validateStudentID= function() {
 	var StudentValue = document.getElementsByName("studentid")[0].value;
 	var rexp = /^\d{8}$/;
@@ -98,17 +72,6 @@ var validateGradYear = function(){
 
 
 $(document).ready(function() {
-
-	var sid = document.getElementsByName("sid")[0];
-	sid.addEventListener("keyup", function(){
-		validateField(this, "Error: Enter 8 numbers 0-9", validateS_ID)
-	});
-
-	var pwd = document.getElementsByName("pwd")[0];
-	pwd.addEventListener("keyup", function(){
-	validateField(this, "Error: Must have at least 8 letters and 1 number", validatePwd)
-	});
-
 	var studentID = document.getElementsByName("studentid")[0];
 	studentID.addEventListener("keyup", function(){
 		validateField(this, "Error: Enter 8 numbers 0-9", validateStudentID)
