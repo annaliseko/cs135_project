@@ -34,8 +34,9 @@ Test features as an existing user
 5. Logout
 
 Test features as our test student
-1. Go to welcome.php
-2. Log in with Student ID: 00000000 and Password: password1
-3. Add courses as you complete them
-4. See changes be reflected on My Progress and Major page
-5. Logout
+1. Import our sequence.sql table
+2. Go to welcome.php
+3. Log in with Student ID: 00000000 and Password: password1
+4. Add courses as you complete them
+5. See changes be reflected on My Progress and Major page
+6. Logout
