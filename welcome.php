@@ -1,5 +1,16 @@
 <?php
 session_start();
+$chk = @md5(
+$_SERVER[ 'HTTP_ACCEPT_CHARSET' ] .
+$_SERVER[ 'HTTP_ACCEPT_ENCODING' ] .
+$_SERVER[ 'HTTP_ACCEPT_LANGUAGE' ] .
+$_SERVER[ 'HTTP_USER_AGENT' ]);
+
+if (empty($_SESSION))
+	$_SESSION['key'] = $chk;
+else if ($_SESSION['key'] != $chk)
+	session_destroy();
+  
 require 'dbconn.php';
 $connection = connect_to_db("sequence");
 require 'queries.php'
